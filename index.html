@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Tasks</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+    
+    <main class="app-container">
+        <header class="app-header">
+            <h1>Aura Tasks</h1>
+            <p>Your beautiful personal checklist.</p>
+        </header>
+        
+        <form id="task-form" class="task-form">
+            <div class="input-wrapper">
+                <i class="ph ph-plus"></i>
+                <input type="text" id="task-input" placeholder="What needs to be done?" autocomplete="off" required>
+            </div>
+            <button type="submit" class="submit-btn">Add Task</button>
+        </form>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="active">Active</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+
+        <ul id="task-list" class="task-list">
+            <!-- Tasks will be injected down here via JS -->
+        </ul>
+        
+        <div class="stats">
+            <span id="task-count">0 items left</span>
+            <button id="clear-completed" class="clear-btn">Clear Completed</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
