@@ -51,7 +51,7 @@ body {
 .orb-1 {
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(139,92,246,0.5) 0%, rgba(139,92,246,0) 70%);
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.5) 0%, rgba(139, 92, 246, 0) 70%);
     top: -100px;
     left: -100px;
 }
@@ -59,7 +59,7 @@ body {
 .orb-2 {
     width: 350px;
     height: 350px;
-    background: radial-gradient(circle, rgba(56,189,248,0.4) 0%, rgba(56,189,248,0) 70%);
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.4) 0%, rgba(56, 189, 248, 0) 70%);
     bottom: -50px;
     right: -100px;
     animation-delay: -5s;
@@ -68,15 +68,20 @@ body {
 .orb-3 {
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(236,72,153,0.3) 0%, rgba(236,72,153,0) 70%);
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, rgba(236, 72, 153, 0) 70%);
     top: 40%;
     left: 40%;
     animation-delay: -10s;
 }
 
 @keyframes drift {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(50px, 50px) scale(1.1); }
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(50px, 50px) scale(1.1);
+    }
 }
 
 /* App Glassmorphism Container */
@@ -223,9 +228,11 @@ body {
 .task-list::-webkit-scrollbar {
     width: 6px;
 }
+
 .task-list::-webkit-scrollbar-track {
     background: transparent;
 }
+
 .task-list::-webkit-scrollbar-thumb {
     background: var(--glass-border);
     border-radius: 4px;
@@ -241,21 +248,35 @@ body {
     padding: 12px 16px;
     transition: all 0.3s ease;
     animation: slideIn 0.3s ease forwards;
+    position: relative;
+    z-index: 1;
 }
 
-.task-item:hover {
+.task-item:hover,
+.task-item:focus-within {
     background: rgba(255, 255, 255, 0.06);
     transform: translateX(4px);
     border-color: rgba(255, 255, 255, 0.1);
+    z-index: 50;
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeOut {
-    to { opacity: 0; transform: scale(0.9); }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
 }
 
 .task-item.removing {
@@ -301,26 +322,135 @@ body {
     opacity: 0.7;
 }
 
-.delete-btn {
+/* Inline Edit Styles */
+.task-item.editing .task-checkbox,
+.task-item.editing .task-text,
+.task-item.editing .task-actions {
+    display: none;
+}
+
+.edit-input {
+    display: none;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--accent);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.task-item.editing .edit-input {
+    display: block;
+}
+
+.task-item.editing {
+    padding: 8px 12px;
+}
+
+/* More Options Menu */
+.task-actions {
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.task-item:hover .task-actions,
+.task-actions.active {
+    opacity: 1;
+}
+
+.options-btn {
     background: transparent;
     border: none;
     color: var(--text-secondary);
     cursor: pointer;
     font-size: 1.2rem;
-    opacity: 0;
-    transition: all 0.2s ease;
+    padding: 4px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
 }
 
-.task-item:hover .delete-btn {
+.options-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.options-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #0f172a;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+}
+
+.options-menu.show {
+    background: #0f172a;
     opacity: 1;
+    visibility: visible;
+    transform: translateY(4px);
 }
 
-.delete-btn:hover {
+.menu-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.menu-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.menu-btn.delete-menu-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
     color: var(--danger);
-    transform: scale(1.1);
+}
+
+/* Drag and drop additions */
+.task-item {
+    cursor: grab;
+}
+
+.task-item.dragging {
+    opacity: 0.5;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px dashed var(--accent);
+    cursor: grabbing;
+}
+
+.task-text {
+    cursor: text;
+}
+
+.task-checkbox {
+    cursor: pointer;
 }
 
 /* Stats Footer */
@@ -352,11 +482,11 @@ body {
     .app-container {
         padding: 24px 16px;
     }
-    
+
     .task-item {
         padding: 12px;
     }
-    
+
     .delete-btn {
         opacity: 1;
     }
